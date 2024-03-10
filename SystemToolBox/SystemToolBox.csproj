@@ -1,0 +1,213 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{577BBED3-82CF-4BF4-BC74-8217EEEB2705}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SystemToolBox</RootNamespace>
+    <AssemblyName>SystemToolBox</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x64</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup />
+  <PropertyGroup>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net40\MahApps.Metro.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net40\System.Windows.Interactivity.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Common\CommonFunc.cs" />
+    <Compile Include="Common\Test.cs" />
+    <Compile Include="CustomControls\ResizableBorderRichTextBox.cs" />
+    <Compile Include="Framwork\BaseNotifyPropertyChanged.cs" />
+    <Compile Include="Framwork\CmdHelper\CmdHelper.cs" />
+    <Compile Include="Framwork\FileHelper\FileHelper.cs" />
+    <Compile Include="Framwork\HotKeyHelper\HotKeyHelper.cs" />
+    <Compile Include="Framwork\RelayCommand\BaseCommand.cs" />
+    <Compile Include="Framwork\RelayCommand\ICommandEx.cs" />
+    <Compile Include="Framwork\RelayCommand\RelayCommand.cs" />
+    <Compile Include="Framwork\RisCaptureLib\BitmapCursor.cs" />
+    <Compile Include="Framwork\RisCaptureLib\Config.cs" />
+    <Compile Include="Framwork\RisCaptureLib\HelperMethods.cs" />
+    <Compile Include="Framwork\RisCaptureLib\IndicatorObject.cs" />
+    <Compile Include="Framwork\RisCaptureLib\MaskCanvas.cs" />
+    <Compile Include="Framwork\RisCaptureLib\MaskWindow.cs" />
+    <Compile Include="Framwork\RisCaptureLib\MoveThumb.cs" />
+    <Compile Include="Framwork\RisCaptureLib\ResizeThumb.cs" />
+    <Compile Include="Framwork\RisCaptureLib\ResizeThumbPlacement.cs" />
+    <Compile Include="Framwork\RisCaptureLib\ScreenCaputre.cs" />
+    <Compile Include="Framwork\RisCaptureLib\ScreenCaputredEventArgs.cs" />
+    <Compile Include="Framwork\RisCaptureLib\ThumbBase.cs" />
+    <Compile Include="Framwork\ThreadHelper\ThreadInvoker.cs" />
+    <Compile Include="Native\Framwork\Privileges.cs" />
+    <Compile Include="Native\NativeConstants.cs" />
+    <Compile Include="Native\NativeMethods.cs" />
+    <Compile Include="UserControls\Dialogs\Dialog_IpCtrolTCP.xaml.cs">
+      <DependentUpon>Dialog_IpCtrolTCP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dialogs\Dialog_IpCtrolUDP.xaml.cs">
+      <DependentUpon>Dialog_IpCtrolUDP.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dialogs\Dialog_ProcessModulesShow.xaml.cs">
+      <DependentUpon>Dialog_ProcessModulesShow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Dialogs\Dialog_RawSocketSniffer.xaml.cs">
+      <DependentUpon>Dialog_RawSocketSniffer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModel\BasicCtrolViewModel.cs" />
+    <Compile Include="ViewModel\CaptureScreenViewModel.cs" />
+    <Compile Include="ViewModel\DialogsViewModel\ProcessModulesViewModel.cs" />
+    <Compile Include="ViewModel\DialogsViewModel\IpCtrolViewModel.cs" />
+    <Compile Include="ViewModel\DialogsViewModel\RawSocketSnifferViewModel.cs" />
+    <Compile Include="ViewModel\NetwordToolViewModel.cs" />
+    <Compile Include="ViewModel\ProcessCtrolViewModel.cs" />
+    <Compile Include="ViewModel\TotalDataContext.cs" />
+    <Compile Include="ViewModel\Win32Bios.cs" />
+    <Page Include="Framwork\RisCaptureLib\Themes\generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Styles\Themes\Button.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="SysToolBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SysToolBox.xaml.cs">
+      <DependentUpon>SysToolBox.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Styles\Style.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Dialogs\Dialog_IpCtrolTCP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Dialogs\Dialog_IpCtrolUDP.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Dialogs\Dialog_ProcessModulesShow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Dialogs\Dialog_RawSocketSniffer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="app.manifest" />
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\WpfBindTo\WpfBindTo.csproj">
+      <Project>{A7C2832A-E087-405C-9A7B-9523A2740CCA}</Project>
+      <Name>WpfBindTo</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Licenses\MahApps.Metro.txt" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

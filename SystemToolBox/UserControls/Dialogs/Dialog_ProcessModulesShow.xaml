@@ -1,0 +1,32 @@
+﻿<mahApps:MetroWindow x:Class="SystemToolBox.UserControls.Dialogs.Dialog_ProcessModulesShow"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     mc:Ignorable="d"
+                     Title="模块列表"
+                     WindowStartupLocation="CenterOwner"
+                     ResizeMode="CanMinimize"
+                     BorderThickness="0"
+                     GlowBrush="Black"
+                     Height="200" Width="600">
+    <Grid>
+        <ListView Name="modulesCtrol_ListView"
+                  GridViewColumnHeader.Click="modulesCtrol_ListView_Click"
+                  ItemsSource="{Binding}"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  BorderBrush="Black" BorderThickness="1" Foreground="Blue"
+                  Height="155" Margin="5">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Width="90" Header="模块名" DisplayMemberBinding="{BindTo ModuleName}"/>
+                    <GridViewColumn Header="基地址" DisplayMemberBinding="{BindTo BaseAddress}"/>
+                    <GridViewColumn Header="入口地址" DisplayMemberBinding="{BindTo EntryPointAddres}"/>
+                    <GridViewColumn Header="内存大小" DisplayMemberBinding="{BindTo ModuleMemorySize}"/>
+                    <GridViewColumn Header="模块路径" DisplayMemberBinding="{BindTo ModulePath}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</mahApps:MetroWindow>

@@ -1,0 +1,38 @@
+﻿<mahApps:MetroWindow x:Class="SystemToolBox.UserControls.Dialogs.Dialog_IpCtrolTCP"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     Title="TCP"
+                     WindowStartupLocation="CenterOwner"
+                     ResizeMode="CanMinimize"
+                     BorderThickness="0"
+                     GlowBrush="Black"
+                     Height="230" Width="600">
+    <Grid>
+        <ListView Height="180" Margin="5"
+                  Name="ipCtrol_ListView"
+                  ItemsSource="{Binding}"
+                  GridViewColumnHeader.Click="ipCtrol_ListView_ColumnHeader_Click"
+                  ScrollViewer.VerticalScrollBarVisibility="Auto"
+                  BorderBrush="Black" BorderThickness="1">
+            <ListView.ContextMenu>
+                <ContextMenu 
+                    PreviewMouseDown="ipCtrol_ListView_ContextMenu_MouseLeftButtonDown"
+                    FontSize="12">
+                    <MenuItem Header="刷新"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="本地地址" Width="100" DisplayMemberBinding="{BindTo LocalAddress}"></GridViewColumn>
+                    <GridViewColumn Header="本地端口" Width="65" DisplayMemberBinding="{BindTo LocalPort}"></GridViewColumn>
+                    <GridViewColumn Header="目标地址" Width="100" DisplayMemberBinding="{BindTo RemoteAddress}"></GridViewColumn>
+                    <GridViewColumn Header="目标端口" Width="65" DisplayMemberBinding="{BindTo RemotePort}"></GridViewColumn>
+                    <GridViewColumn Header="进程ID" Width="auto" DisplayMemberBinding="{BindTo Pid}"></GridViewColumn>
+                    <GridViewColumn Header="进程名" Width="auto" DisplayMemberBinding="{BindTo ProcessName}"></GridViewColumn>
+                    <GridViewColumn Header="状态" Width="60" DisplayMemberBinding="{BindTo State}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</mahApps:MetroWindow>

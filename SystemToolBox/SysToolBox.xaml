@@ -1,0 +1,516 @@
+﻿<mahApps:MetroWindow
+    x:Class="SystemToolBox.SysToolBoxMain"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+    Name="MainMetroWindow"
+    Title="System tool box"
+    Width="500"
+    Height="250"
+    MaxWidth="500"
+    BorderThickness="0"
+    GlowBrush="Black"
+    Loaded="MetroWindow_Loaded"
+    ResizeMode="CanMinimize"
+    TitleCaps="False"
+    WindowStartupLocation="CenterScreen">
+    <Grid>
+        <mahApps:MetroTabControl Name="SystemTool_TabControl" SelectionChanged="MetroTabControl_SelectionChanged">
+            <!--  基本操作Tab  -->
+            <mahApps:MetroTabItem
+                mahApps:ControlsHelper.HeaderFontSize="18"
+                CloseButtonEnabled="False"
+                DataContext="{Binding BasicCtrolViewModel}"
+                Header="基本操作">
+                <WrapPanel HorizontalAlignment="Center" Orientation="Horizontal">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*" />
+                            <RowDefinition Height="35" />
+                        </Grid.RowDefinitions>
+                        <GroupBox
+                            Grid.Row="0"
+                            Width="258"
+                            Height="115"
+                            VerticalAlignment="Top"
+                            Header="系统基本操作">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="5*" />
+                                    <ColumnDefinition Width="5*" />
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="1">
+                                    <mahApps:SplitButton
+                                        Name="basicCtrol_SplitButton"
+                                        HorizontalContentAlignment="Left"
+                                        ItemsSource="{BindTo Features}"
+                                        SelectedValue="{BindTo CurrFeature}" />
+                                    <Button
+                                        Name="basicCtrol_Button4OpenFileDialog"
+                                        Width="120"
+                                        Height="50"
+                                        Margin="0,1,1,0"
+                                        Command="{BindTo OpenFileDialogCommand()}"
+                                        Content="{BindTo ExecuteFileName}"
+                                        IsEnabled="{Binding Path=IsChecked, ElementName=basicCtrol_CheckBox4IsExeExecute}"
+                                        Style="{StaticResource ResourceKey=BeautifulButton}" />
+
+                                </StackPanel>
+                                <StackPanel Grid.Column="0">
+                                    <TextBlock
+                                        Height="20"
+                                        Margin="0,5,0,0"
+                                        FontSize="16"
+                                        Text="关机/重启/注销"
+                                        TextAlignment="Left" />
+                                    <CheckBox
+                                        Name="basicCtrol_CheckBox4IsExeExecute"
+                                        Height="20"
+                                        Margin="0,5,0,0"
+                                        Click="basicCtrol_CheckBox4IsExeExecute_Click"
+                                        Content="启用定时执行程序"
+                                        FontSize="12"
+                                        Foreground="Red"
+                                        IsChecked="{BindTo IsExecuteExe}" />
+                                    <TextBlock
+                                        Height="20"
+                                        Margin="0,5,0,0"
+                                        FontSize="16"
+                                        Text="定时执行程序"
+                                        TextAlignment="Left" />
+                                </StackPanel>
+                            </Grid>
+                        </GroupBox>
+
+                        <WrapPanel
+                            Grid.Row="1"
+                            Height="35"
+                            VerticalAlignment="Bottom">
+                            <Button
+                                Name="basicCtrol_Button4Execute"
+                                Width="120"
+                                Height="25"
+                                Margin="5"
+                                Command="{BindTo ExecuteCommand()}"
+                                Content="开始执行"
+                                Style="{StaticResource ResourceKey=BeautifulButton}" />
+                            <Button
+                                Name="basicCtrol_Button4CancelExecute"
+                                Width="120"
+                                Height="25"
+                                Margin="5"
+                                Command="{BindTo CancelExecuteCommand()}"
+                                Content="取消执行"
+                                Style="{StaticResource ResourceKey=BeautifulButton}" />
+                        </WrapPanel>
+                    </Grid>
+                    <GroupBox Width="200" Height="150">
+                        <GroupBox.HeaderTemplate>
+                            <DataTemplate>
+                                <Grid Height="auto">
+                                    <TextBlock Text="定时器设定" />
+                                    <Button
+                                        HorizontalAlignment="Right"
+                                        Click="btn_Reset_Click"
+                                        Content="Reset"
+                                        FontSize="13"
+                                        Style="{StaticResource ResourceKey=BeautifulButton}" />
+                                </Grid>
+                            </DataTemplate>
+                        </GroupBox.HeaderTemplate>
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                FontSize="14"
+                                Text="指定日期后执行:"
+                                TextAlignment="Left" />
+                            <mahApps:DateTimePicker
+                                Name="basicCtrol_DateTimePicker"
+                                Grid.Row="1"
+                                SelectedDateChanged="DateTimePicker_SelectedDateChanged" />
+
+                            <TextBlock
+                                Grid.Row="2"
+                                Height="20"
+                                Margin="5,0,0,0"
+                                FontSize="14"
+                                Text="指定秒数后执行:"
+                                TextAlignment="Left" />
+                            <TextBox
+                                Name="basicCtrol_TextBox4Seconds"
+                                Grid.Row="3"
+                                Height="20"
+                                mahApps:TextBoxHelper.AutoWatermark="True"
+                                mahApps:TextBoxHelper.SelectAllOnFocus="True"
+                                mahApps:TextBoxHelper.Watermark="Please input the seconds"
+                                mahApps:TextBoxHelper.WatermarkAlignment="Left"
+                                FontSize="16"
+                                MaxLength="10"
+                                PreviewTextInput="basicCtrol_TextBox4Seconds_PreviewTextInput"
+                                TextChanged="basicCtrol_TextBox4Seconds_TextChanged" />
+                        </Grid>
+                    </GroupBox>
+
+                    <TextBlock
+                        Height="20"
+                        Margin="5"
+                        FontSize="12"
+                        Foreground="Blue"
+                        Text="{Binding Path=CurrFeature, StringFormat=计算机{0}时间为：}" />
+                    <TextBlock
+                        Name="basicCtrol_TextBlock_ExecuteTimeShow"
+                        Height="20"
+                        FontSize="12"
+                        Foreground="Red"
+                        Text="" />
+                    <TextBlock
+                        Height="20"
+                        Margin="5"
+                        FontSize="12"
+                        Foreground="Blue"
+                        Text="剩余时间：" />
+                    <TextBlock
+                        Name="basicCtrol_TextBlock_Countdown"
+                        Height="20"
+                        FontSize="12"
+                        Foreground="Red"
+                        Text="{BindTo Countdown}" />
+                </WrapPanel>
+            </mahApps:MetroTabItem>
+
+            <!--  进程操作Tab  -->
+            <mahApps:MetroTabItem
+                mahApps:ControlsHelper.HeaderFontSize="18"
+                Header="进程操作"
+                Visibility="Collapsed">
+                <StackPanel>
+                    <ListView
+                        Name="processCtrol_ListView"
+                        Height="180"
+                        Margin="5"
+                        BorderBrush="Black"
+                        BorderThickness="1"
+                        GridViewColumnHeader.Click="processCtrol_ListView_ColumnHeader_Click"
+                        ItemsSource="{Binding}"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        <ListView.ContextMenu>
+                            <ContextMenu FontSize="12" PreviewMouseDown="processCtrol_ListView_ContextMenu_MouseLeftButtonDown">
+                                <MenuItem Header="刷新进程" />
+                                <MenuItem Header="结束选中进程" />
+                                <Separator />
+                                <MenuItem Header="查看进程模块" />
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Width="32">
+                                    <GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <Image Source="{BindTo IconEx}" />
+                                        </DataTemplate>
+                                    </GridViewColumn.CellTemplate>
+                                </GridViewColumn>
+                                <GridViewColumn DisplayMemberBinding="{BindTo ProcessName}" Header="进程名" />
+                                <GridViewColumn DisplayMemberBinding="{BindTo ProcessId}" Header="进程ID" />
+                                <GridViewColumn DisplayMemberBinding="{BindTo ProcessPriority}" Header="优先级" />
+                                <GridViewColumn DisplayMemberBinding="{BindTo ProcessPath}" Header="路径" />
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </mahApps:MetroTabItem>
+            <!--  截图  -->
+            <mahApps:MetroTabItem
+                mahApps:ControlsHelper.HeaderFontSize="18"
+                DataContext="{Binding CaptureScreenViewModel}"
+                Header="截图">
+                <mahApps:MetroTabItem.InputBindings>
+                    <KeyBinding
+                        Key="A"
+                        Command="{BindTo CaptureScreenExecuteCommand()}"
+                        Modifiers="Alt + Shift" />
+                </mahApps:MetroTabItem.InputBindings>
+                <Grid Margin="2">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="2*" />
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+                    <!--  xaml添加边框  -->
+                    <Border BorderBrush="LightGray" BorderThickness="1" />
+                    <Border
+                        Grid.Column="1"
+                        BorderBrush="LightGray"
+                        BorderThickness="1" />
+                    <!--  Left  -->
+                    <WrapPanel Grid.Column="0">
+                        <Button
+                            Width="90"
+                            Height="20"
+                            Margin="5,4,5,1"
+                            VerticalAlignment="Top"
+                            Command="{BindTo CaptureScreenExecuteCommand()}"
+                            Content="截图"
+                            Style="{StaticResource ResourceKey=BeautifulButton}" />
+                        <Button
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo CaptureScreenColorChangeCommand()}"
+                            Content="颜色"
+                            Style="{StaticResource ResourceKey=BeautifulButton}" />
+                        <TextBlock
+                            Height="16"
+                            Margin="5,1,5,0"
+                            Text="画刷粗细:"
+                            TextAlignment="Center" />
+                        <TextBox
+                            Width="25"
+                            Height="20"
+                            Margin="0,1,5,0"
+                            PreviewTextInput="CaptureScreen_BrushThickness_PreviewTextInput"
+                            Style="{x:Null}"
+                            Text="{BindTo BrushThickness}"
+                            TextChanged="CaptureScreen_BrushThickness_TextChanged" />
+                        <RadioButton
+                            Name="CaptureScreen_RadioButton_NoneBrush"
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo SelectBrushFeature()}"
+                            CommandParameter="{BindTo #CaptureScreen_RadioButton_NoneBrush}"
+                            Content="无画刷"
+                            GroupName="CaptureScreen_RadioButton"
+                            IsChecked="True" />
+                        <RadioButton
+                            Name="CaptureScreen_RadioButton_Ellipse"
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo SelectBrushFeature()}"
+                            CommandParameter="{BindTo #CaptureScreen_RadioButton_Ellipse}"
+                            Content="圆形画刷"
+                            GroupName="CaptureScreen_RadioButton" />
+                        <RadioButton
+                            Name="CaptureScreen_RadioButton_EraseByPoint"
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo SelectBrushFeature()}"
+                            CommandParameter="{BindTo #CaptureScreen_RadioButton_EraseByPoint}"
+                            Content="按点擦除"
+                            GroupName="CaptureScreen_RadioButton" />
+                        <RadioButton
+                            Name="CaptureScreen_RadioButton_EraseByStroke"
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo SelectBrushFeature()}"
+                            CommandParameter="{BindTo #CaptureScreen_RadioButton_EraseByStroke}"
+                            Content="按线擦除"
+                            GroupName="CaptureScreen_RadioButton" />
+                        <RadioButton
+                            Name="CaptureScreen_RadioButton_Select"
+                            Width="90"
+                            Height="20"
+                            Margin="5,1,5,1"
+                            Command="{BindTo SelectBrushFeature()}"
+                            CommandParameter="{BindTo #CaptureScreen_RadioButton_Select}"
+                            Content="选中墨迹"
+                            GroupName="CaptureScreen_RadioButton" />
+                    </WrapPanel>
+
+                    <!--  Right  -->
+                    <ScrollViewer
+                        Grid.Column="1"
+                        HorizontalScrollBarVisibility="Auto"
+                        PanningMode="Both"
+                        VerticalScrollBarVisibility="Auto">
+                        <InkCanvas
+                            Name="CaptureScreen_InkCanvas"
+                            Width="0"
+                            Height="0"
+                            MouseRightButtonUp="CaptureScreen_InkCanvas_MouseRightButtonUp">
+                            <InkCanvas.ContextMenu>
+                                <ContextMenu FontSize="12" PreviewMouseDown="CaptureScreen_InkCanvas_ContextMenu_MouseLeftButtonDown">
+                                    <MenuItem Header="复制" />
+                                    <MenuItem Header="插入文本" />
+                                    <MenuItem Header="另存为..." />
+                                    <Separator />
+                                    <MenuItem Header="清除所有墨迹" />
+                                    <MenuItem Header="使用画图工具打开" />
+                                </ContextMenu>
+                            </InkCanvas.ContextMenu>
+                        </InkCanvas>
+                    </ScrollViewer>
+                </Grid>
+            </mahApps:MetroTabItem>
+            <mahApps:MetroTabItem
+                mahApps:ControlsHelper.HeaderFontSize="18"
+                DataContext="{Binding NetwordToolViewModel}"
+                Header="网络工具">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <GroupBox
+                        Grid.Column="0"
+                        Height="90"
+                        VerticalAlignment="Top"
+                        Header="延迟测试">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="5,2,0,0"
+                                FontSize="16"
+                                Text="IP/URL: " />
+                            <TextBox
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                mahApps:TextBoxHelper.SelectAllOnFocus="True"
+                                IsEnabled="{Binding Path=IsStopedPing}"
+                                Text="{BindTo TargetUrl}" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Width="80"
+                                Height="20"
+                                Command="{BindTo GetDelayCommand()}"
+                                CommandParameter="{BindTo this}"
+                                Content="开始测试"
+                                Style="{StaticResource ResourceKey=BeautifulButton}" />
+                            <TextBlock
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                Padding="5,4,0,0"
+                                FontSize="16"
+                                Foreground="Green"
+                                Text="{Binding Path=Delay}" />
+                        </Grid>
+                    </GroupBox>
+                    <GroupBox
+                        Grid.Column="0"
+                        Height="90"
+                        VerticalAlignment="Bottom"
+                        Header="根据PID获取远程地址(UDP)">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="80" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <TextBlock
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Padding="5,2,0,0"
+                                FontSize="18"
+                                Text="PID: " />
+                            <TextBox
+                                Name="NetwordTool_TextBox_Pid"
+                                Grid.Row="0"
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                mahApps:TextBoxHelper.SelectAllOnFocus="True" />
+                            <Button
+                                Grid.Row="1"
+                                Grid.Column="0"
+                                Width="80"
+                                Height="20"
+                                Command="{BindTo GetDestinationAddressByPidCommand()}"
+                                CommandParameter="{BindTo #NetwordTool_TextBox_Pid}"
+                                Content="获取"
+                                Style="{StaticResource ResourceKey=BeautifulButton}" />
+                            <TextBox
+                                Grid.Row="1"
+                                Grid.Column="1"
+                                Margin="2,0,0,0"
+                                mahApps:TextBoxHelper.SelectAllOnFocus="True"
+                                IsReadOnly="True"
+                                Text="{BindTo DestinationAddress}" />
+                        </Grid>
+                    </GroupBox>
+                    <StackPanel Grid.Column="1">
+                        <Button
+                            Width="230"
+                            Height="20"
+                            Margin="5"
+                            Command="{BindTo ShowPortTcpInfoCommand()}"
+                            CommandParameter="{BindTo #MainMetroWindow}"
+                            Content="查看端口信息(TCP)"
+                            Style="{StaticResource ResourceKey=BeautifulButton}" />
+                        <Button
+                            Width="230"
+                            Height="20"
+                            Margin="5,0,5,5"
+                            Command="{BindTo ShowPortUdpInfoCommand()}"
+                            CommandParameter="{BindTo #MainMetroWindow}"
+                            Content="查看端口信息(UDP)"
+                            Style="{StaticResource ResourceKey=BeautifulButton}" />
+                        <Button
+                            Width="230"
+                            Height="20"
+                            Margin="5,0,5,0"
+                            Command="{BindTo ShowRawSocketSnifferCommand()}"
+                            CommandParameter="{BindTo #MainMetroWindow}"
+                            Content="RawSocket嗅探工具"
+                            Style="{StaticResource ResourceKey=BeautifulButton}" />
+                    </StackPanel>
+                </Grid>
+            </mahApps:MetroTabItem>
+            <!--<mahApps:MetroTabItem mahApps:ControlsHelper.HeaderFontSize="18"
+                                  Header="端口地址">
+                <StackPanel>
+                    <ListView Height="180" Margin="5"
+                              Name="ipCtrol_ListView"
+                              ItemsSource="{Binding}"
+                              GridViewColumnHeader.Click="ipCtrol_ListView_ColumnHeader_Click"
+                              ScrollViewer.VerticalScrollBarVisibility="Auto"
+                              BorderBrush="Black" BorderThickness="1">
+                        <ListView.ContextMenu>
+                            <ContextMenu
+                                PreviewMouseDown="ipCtrol_ListView_ContextMenu_MouseLeftButtonDown"
+                                FontSize="12">
+                                <MenuItem Header="刷新"/>
+                            </ContextMenu>
+                        </ListView.ContextMenu>
+                        <ListView.View>
+                            <GridView>
+                                <GridViewColumn Header="本地地址" Width="100" DisplayMemberBinding="{BindTo LocalAddress}"></GridViewColumn>
+                                <GridViewColumn Header="本地端口" Width="65" DisplayMemberBinding="{BindTo LocalPort}"></GridViewColumn>
+                                <GridViewColumn Header="目标地址" Width="100" DisplayMemberBinding="{BindTo RemoteAddress}"></GridViewColumn>
+                                <GridViewColumn Header="目标端口" Width="65" DisplayMemberBinding="{BindTo RemotePort}"></GridViewColumn>
+                                <GridViewColumn Header="进程ID" Width="auto" DisplayMemberBinding="{BindTo Pid}"></GridViewColumn>
+                                <GridViewColumn Header="进程名" Width="auto" DisplayMemberBinding="{BindTo ProcessName}"></GridViewColumn>
+                                <GridViewColumn Header="状态" Width="60" DisplayMemberBinding="{BindTo State}"></GridViewColumn>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </StackPanel>
+            </mahApps:MetroTabItem>-->
+            <mahApps:MetroTabItem mahApps:ControlsHelper.HeaderFontSize="18" Header="TEST" />
+        </mahApps:MetroTabControl>
+    </Grid>
+</mahApps:MetroWindow>

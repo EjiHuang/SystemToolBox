@@ -1,0 +1,31 @@
+﻿<mahApps:MetroWindow x:Class="SystemToolBox.UserControls.Dialogs.Dialog_RawSocketSniffer"
+                     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                     xmlns:mahApps="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                     WindowStartupLocation="CenterOwner"
+                     ResizeMode="CanMinimize"
+                     BorderThickness="0"
+                     GlowBrush="Black"
+                     Height="300" Width="400"
+                     Name="MainMetroWindow"
+                     Title="RawSocket sniffer"
+                     TitleCharacterCasing="Normal">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <TreeView ItemsSource="{BindTo PacketsItems}" Grid.Row="0">
+            
+        </TreeView>
+        <WrapPanel Grid.Row="1">
+            <Button Content="开始捕获" Width="90" Height="25" Margin="4,2,2,2"
+                    Style="{StaticResource ResourceKey=BeautifulButton}"
+                    Command="{BindTo CapturePacketCommand()}"
+                    CommandParameter="{BindTo this}"/>
+            <ComboBox Height="25" Width="280" Margin="2,2,0,2"
+                      Loaded="ComboBox_LoadIpAddressList_Loaded" 
+                      SelectionChanged="ComboBox_LoadIpAddressList_SelectionChanged" />
+        </WrapPanel>
+    </Grid>
+</mahApps:MetroWindow>
